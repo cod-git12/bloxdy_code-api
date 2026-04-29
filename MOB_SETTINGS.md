@@ -1,0 +1,487 @@
+# Mob Settings
+
+These impact the behaviour of mobs, what they look like, and how they sound. These can either be set on a per-mob basis or the default can be set for all mobs of a particular type.
+These API methods allow you to modify mob settings:
+
+```js
+/**
+ * Returns the current default value for a mob setting.
+ *
+ * @param {TMobType} mobType
+ * @param {TMobSetting} setting
+ * @returns {MobSettings<TMobType>[TMobSetting]}
+ */
+getDefaultMobSetting(mobType, setting)
+
+/**
+ * Set the default value for a mob setting.
+ *
+ * @param {TMobType} mobType
+ * @param {TMobSetting} setting
+ * @param {MobSettings<TMobType>[TMobSetting]} value
+ * @returns {void}
+ */
+setDefaultMobSetting(mobType, setting, value)
+
+/**
+ * Get the current value of a mob setting for a specific mob.
+ *
+ * @param {MobId} mobId
+ * @param {TMobSetting} setting
+ * @param {boolean} [returnDefaultIfNotOverridden] - If true, return the default setting if not overridden.
+ * @returns {MobSettings<MobType>[TMobSetting]}
+ */
+getMobSetting(mobId, setting, returnDefaultIfNotOverridden)
+
+/**
+ * Set the current value of a mob setting for a specific mob.
+ *
+ * @param {MobId} mobId
+ * @param {TMobSetting} setting
+ * @param {MobSettings<MobType>[TMobSetting]} value
+ * @returns {void}
+ */
+setMobSetting(mobId, setting, value)
+```
+
+Here is the full list of available mob settings:
+
+```js
+/**
+ * @type {"default"}
+ */
+variation = "default"
+
+/**
+ * @type {string}
+ */
+name = ""
+
+/**
+ * @type {number}
+ */
+maxHealth = 75
+
+/**
+ * @type {number}
+ */
+initialHealth = 75
+
+/**
+ * @type {string}
+ */
+idleSound = "pigOink"
+
+/**
+ * @type {string}
+ */
+attackSound = null
+
+/**
+ * @type {string}
+ */
+secondaryAttackSound = null
+
+/**
+ * @type {string}
+ */
+hurtSound = "pigHurt"
+
+/**
+ * @type { { itemName: string; probabilityOfDrop: number; dropMinAmount: number; dropMaxAmount: number; applyBurstImpulseToDrop?: boolean; }[] }
+ */
+onDeathItemDrops = [
+    {
+        itemName: "Raw Porkchop",
+        probabilityOfDrop: 1,
+        dropMinAmount: 1,
+        dropMaxAmount: 3,
+    },
+]
+
+/**
+ * @type {string}
+ */
+onDeathParticleTexture = "critical_hit"
+
+/**
+ * @type {number}
+ */
+onDeathAura = 20
+
+/**
+ * @type {number}
+ */
+baseWalkingSpeed = 3.5
+
+/**
+ * @type {number}
+ */
+baseRunningSpeed = 4.55 * 0.85
+
+/**
+ * @type {number}
+ */
+walkingSpeedMultiplier = 1
+
+/**
+ * @type {number}
+ */
+runningSpeedMultiplier = 1
+
+/**
+ * @type {number}
+ */
+jumpCount = 0
+
+/**
+ * @type {number}
+ */
+baseJumpImpulseXZ = 0
+
+/**
+ * @type {number}
+ */
+baseJumpImpulseY = 0
+
+/**
+ * @type {number}
+ */
+jumpMultiplier = 1
+
+/**
+ * @type {number}
+ */
+runAwayRadius = 0
+
+/**
+ * @type {number}
+ */
+chaseRadius = 0
+
+/**
+ * @type {number}
+ */
+territoryRadius = 0
+
+/**
+ * @type {number}
+ */
+hostilityRadius = 0
+
+/**
+ * @type {number}
+ */
+stoppingRadius = 0.5
+
+/**
+ * @type {number}
+ */
+attackInterval = 0
+
+/**
+ * @type {number}
+ */
+attackRadius = 0
+
+/**
+ * @type {number}
+ */
+secondaryAttackRadius = 0
+
+/**
+ * @type {number}
+ */
+attackDamage = 0
+
+/**
+ * @type {number}
+ */
+secondaryAttackDamage = 0
+
+/**
+ * @type {number}
+ */
+attackImpulse = 0
+
+/**
+ * @type {number}
+ */
+secondaryAttackImpulse = 0
+
+/**
+ * @type { { burstAttackIntervals: readonly number[]; } }
+ */
+burstAttackInfo = null
+
+/**
+ * @type { { burstAttackIntervals: readonly number[]; } }
+ */
+secondaryBurstAttackInfo = null
+
+/**
+ * @type {string}
+ */
+heldItemName = null
+
+/**
+ * @type {string}
+ */
+attackItemName = null
+
+/**
+ * @type {string}
+ */
+secondaryAttackItemName = null
+
+/**
+ * @type {boolean}
+ */
+swingArmOnAttack = true
+
+/**
+ * @type {boolean}
+ */
+swingArmOnSecondaryAttack = true
+
+/**
+ * @type {string}
+ */
+attackEffectName = null
+
+/**
+ * @type {number}
+ */
+attackEffectDuration = 0
+
+/**
+ * @type {MobWarpTargetSpecialAttackInfo}
+ */
+warpTargetSpecialAttackInfo = {
+        cooldown: 20_000,
+        range: 32,
+        sound: "warperPhase",
+        delay: 1_000,
+        minDestinationRadius: 5,
+        maxDestinationRadius: 7,
+        swingArm: false,
+        particleOpts: {
+            duration: 2_000,
+            texture: "soul_0",
+            colorGradients: [
+                {
+                    timeFraction: 0,
+                    minColor: [70, 215, 230, 1],
+                    maxColor: [75, 225, 240, 1],
+                },
+            ],
+        },
+    }
+
+/**
+ * @type {MobCombatTetherCombatInfo}
+ */
+combatTetherInfo = {
+        range: 11,
+        particleOpts: {
+            texture: "soul_0",
+            colorGradients: [
+                {
+                    timeFraction: 0,
+                    minColor: [245, 35, 25, 1],
+                    maxColor: [255, 45, 35, 1],
+                },
+            ],
+        },
+    }
+
+/**
+ * @type {MobEvadeInfo}
+ */
+evadeInfo = {
+        probability: 0.6,
+        minAngle: Math.PI * 0.35,
+        maxAngle: Math.PI * 0.6,
+        impulse: 8,
+    }
+
+/**
+ * @type {MobTameInfo}
+ */
+tameInfo = {
+    tameItemName: [
+        "Raw Porkchop",
+        "Raw Beef",
+        "Raw Mutton",
+        "Raw Venison",
+        "Cooked Porkchop",
+        "Steak",
+        "Cooked Mutton",
+        "Cooked Venison"
+    ],
+    probabilityOfTame: 0.32,
+    isSaddleable: false,
+    supportsFriendship: true,
+    likedFoods: [
+        "Raw Porkchop",
+        "Raw Beef",
+        "Raw Mutton",
+        "Raw Venison",
+        "Cooked Porkchop",
+        "Steak",
+        "Cooked Mutton",
+        "Cooked Venison",
+        "Banana",
+        "Baked Potato",
+        "Rotten Brain"
+    ],
+    neutralFoods: [
+        "Catnip",
+        "Pumpkin Pie",
+        "Bowl of Cranberries",
+        "Watermelon Slice",
+        "Gold Watermelon Slice",
+        "Bread",
+        "Rotten Flesh",
+        "Mushroom Soup",
+        "Plum",
+        "Carrot",
+        "Beetroot",
+        "Raw Potato"
+    ],
+    dislikedFoods: [
+        "Apple",
+        "Wheat",
+        "Pear",
+        "Cherry",
+        "Bowl of Rice",
+        "Melon Slice",
+        "Gold Melon Slice",
+        "Chili Pepper",
+        "Cracked Coconut"
+    ],
+    foodItemsWithEffects: [
+        {
+            itemName: "Catnip",
+            effects: [
+                {
+                    name: "Speed",
+                    duration: 30000,
+                    level: 1
+                },
+                {
+                    name: "Damage",
+                    duration: 30000,
+                    level: 1
+                }
+            ]
+        }
+    ],
+    guaranteedDrop: "Caught Fish",
+    commonDrops: [
+        "Poop",
+        "Wheat Seeds"
+    ],
+    levelUpBonuses: {
+        1: "Renaming",
+        2: "Special Drops",
+        3: "Damage +",
+        4: "Painting",
+        5: "Poison Claws"
+    }
+}
+
+/**
+ * @type {number}
+ */
+onTamedHealthMultiplier = 4.0
+
+/**
+ * @type {MobPetInfo}
+ */
+petInfo = {
+    friendshipPoints: 0,
+    lastFedAt: null,
+    highestFriendshipLevelReached: 0,
+    superlikedFood: null,
+    superlikedFoodKnown: false,
+    bonusesGained: [],
+}
+
+/**
+ * @type {string}
+ */
+ownerDbId = null
+
+/**
+ * @type {number}
+ */
+minFollowingRadius = 5
+
+/**
+ * @type {number}
+ */
+maxFollowingRadius = 12
+
+/**
+ * @type {boolean}
+ */
+isRideable = false
+
+/**
+ * @type { { amount: number; interval: number; startAfter: number; } }
+ */
+healthRegen = null
+
+/**
+ * @type {number}
+ */
+ridingSpeedMult = 1
+
+/**
+ * @type {string}
+ */
+metaInfo = ""
+```
+
+## Mob AI
+
+A mob's AI state determines its behaviour, e.g.: whether it is stood still, walking in a straight line, chasing someone, running towards a coordinate, etc. These API methods allow you to modify a mob's AI state:
+
+```js
+/**
+ * Gets the current AI state for the given mob.
+ *
+ * @param {MobId} mobId
+ * @returns { { state: MobAiState; params: MobAiStateParams<MobAiState> } }
+ */
+getMobAiState(mobId)
+
+/**
+ * Sets the current AI state for the given mob.
+ * Some AI states will require context such as the ID of the lifeform being chased.
+ *
+ * @param {MobId} mobId
+ * @param {TState} state
+ * @param {MobAiStateParams<TState>} params
+ * @returns {void}
+ */
+setMobAiState(mobId, state, params)
+```
+
+Here is the full list of available mob AI states and their parameters:
+
+| State | Description | Parameters |
+|-------|-------------|------------|
+| `idle` | The mob is stood still, but it still has awareness of its environment.<br>For example: if the mob is hostile, it will still chase and attack nearby players. | `null` |
+| `disabled` | The mob is stood still, and it has no awareness of its environment.<br>It will not even react if provoked. | `null` |
+| `idleBeforeTurning` | The mob is stood still (idle) and is about to turn. | `null` |
+| `turning` | The mob has chosen a new direction at random and is turning to face it. | `null` |
+| `idleBeforeWalking` | The mob is stood still (idle) and is about to walk. | `null` |
+| `walking` | The mob is walking in the direction it is facing. | `null` |
+| `runningAway` | The mob is running away from the target lifeform. | `{ targetId: LifeformId }` |
+| `chasing` | The mob is chasing the target lifeform. | `{ targetId: LifeformId }` |
+| `following` | The mob is following the target lifeform.<br>It will stop if it is within the `minFollowingDistance` (mob setting) of the target,<br>and teleport to the target if it is outside the `maxFollowingDistance` (mob setting) of the target. | `{ targetId: LifeformId }` |
+| `watching` | The mob is stood still looking at the target. | `{ targetId: LifeformId }` |
+| `walkingToPosition` | The mob is walking towards the position.<br>It will stop if it is within the `stoppingRadius` (mob setting) of the position. | `{ pos: Pos }` |
+| `runningToPosition` | The mob is running towards the position.<br>It will stop if it is within the `stoppingRadius` (mob setting) of the position. | `{ pos: Pos }` |
